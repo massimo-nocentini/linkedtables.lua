@@ -9,12 +9,13 @@ local pool = linkedpool.create ()
 local stack = linkedstack.create (pool)
 
 assert (stack ~= nil)
+assert (#stack == 0)
 
 stack:push(1)
 
 assert (not stack:isempty())
 
-stack:push(2):push(3):push(4)	-- push something more on S.
+stack:push(2):push(3):push(4)	-- push something more on `stack`.
 
 assert (tostring(stack) == 'top -> 4, 3, 2, 1')
 assert (#stack == 4)
