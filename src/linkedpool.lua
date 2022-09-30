@@ -9,7 +9,7 @@ function tablespool.create ()
 end
 
 --[[
---This is the implementation of AVAIL ⇒ X
+	This is the implementation of AVAIL ⇒ X
 --]]
 function tablespool.ask(pool)
 	pool.avail = pool.avail or {pool = pool,
