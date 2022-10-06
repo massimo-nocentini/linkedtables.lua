@@ -16,6 +16,7 @@ end
 function stack_mt.__len (S) return S.size end
 
 function stack.create(pool)
+
 	local t = {pool = pool, size = 0}
 	setmetatable(t, stack_mt)
 	return t
@@ -48,6 +49,39 @@ function stack.pop(S)
 
 end
 
-function stack.isempty(S) return S.top == nil end
+function stack.isempty (S) return S.top == nil end
+
+function stack.reverse (S)
+	
+	local p, q = S.top, nil
+
+	while p do
+		local r = q
+		q = p
+		p = q.nexttable
+		q.nexttable = r
+	end
+
+	S.top = q
+
+end
+
+function stack.__do (S, f)
+
+	local p = S.top
+
+	while p do
+
+		f (p.value)
+		p = p.nexttable
+	end
+end
+
+function stack.astable (S)
+
+	local t = {}
+	S:__do(function (v) table.insert(t, v) end)
+	return t
+end
 
 return stack
