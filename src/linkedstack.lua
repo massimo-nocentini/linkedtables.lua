@@ -15,7 +15,12 @@ end
 
 function stack_mt.__len (S) return S.size end
 
-function stack.create(pool)
+function stack_mt.__close (S) 
+
+	while not S:isempty() do S:pop () end
+end
+
+function stack.create (pool)
 
 	local t = {pool = pool, size = 0}
 	setmetatable(t, stack_mt)
