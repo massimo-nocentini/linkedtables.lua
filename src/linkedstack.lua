@@ -17,7 +17,21 @@ function stack_mt.__len (S) return S.size end
 
 function stack_mt.__close (S) 
 
-	while not S:isempty() do S:pop () end
+	if not S:isempty() then
+
+		local first = S.top
+		local p = first
+
+		while p.nexttable do
+			p.value = nil
+			p = p.nexttable
+		end
+
+		p.value = nil
+		p.nexttable = S.pool.avail
+		S.pool.avail = first
+		S.top = nil
+	end
 end
 
 function stack.create (pool)

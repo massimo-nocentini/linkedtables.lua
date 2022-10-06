@@ -15,6 +15,18 @@ end
 
 function queue_mt.__len (S) return S.size end
 
+function queue_mt.__close (S) 
+
+	if not S:isempty() then
+
+		S.rear.nexttable = S.pool.avail
+		S.pool.avail = S.top
+
+		S.top = nil
+		S.rear = nil
+	end
+end
+
 function queue.create(pool)
 	local t = {pool = pool, size = 0}
 	setmetatable(t, queue_mt)
